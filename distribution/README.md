@@ -7,10 +7,14 @@
 | 系统 | 下载文件 | 安装与打开 |
 | --- | --- | --- |
 | macOS 13+，Apple 芯片 | Shengge-macOS-arm64.zip | 解压，将「声格.app」拖入「应用程序」并打开。当前包使用本地签名。 |
-| Windows x64 | Shengge-Windows-x64.zip | 将整个 ZIP 解压到固定目录，双击 Shengge.exe。可将它固定到开始菜单。 |
+| Windows x64 | Shengge-Windows-x64-Setup.exe | 双击按当前用户安装，从开始菜单打开「声格」。便携版 Shengge-Windows-x64.zip 可完整解压后双击 Shengge.exe。 |
 | Debian / Ubuntu，x86-64 | shengge_0.3.5_amd64.deb | 在下载目录执行 `sudo apt install ./shengge_0.3.5_amd64.deb`，从应用菜单打开「声格」。 |
 | iPhone / iPad，iOS 16+ | Shengge-iOS-Xcode.zip | 在 Mac 解压，用 Xcode 打开 Shengge.xcodeproj。在 Signing & Capabilities 选择自己的 Team，选择已连接的设备并运行。真机签名使用自己的 Bundle Identifier。 |
 | Chrome 桌面扩展，137+ | Shengge-Chrome.zip | 解压后打开「安装说明.html」。在 chrome://extensions 打开开发者模式，选择「加载已解压的扩展程序」，选中 extension。 |
+
+[观看中文操作视频](https://github.com/ioi610/shengge/releases/download/v0.3.5-r2/Shengge-Guide-zh-CN.mp4)
+
+iOS 发布文件还包括供开发者签名的 iPhone 设备归档。真机安装可通过上表的 Xcode 工程完成。TestFlight 和 App Store 分发需要使用 Apple 开发者账号签名。
 
 ## 第一次练习
 
