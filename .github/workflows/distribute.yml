@@ -1,0 +1,40 @@
+name: Distribute desktop installers
+on:
+  workflow_dispatch:
+    inputs:
+      tag: {description: Existing release tag, required: true}
+      native_run: {description: Platform packages workflow run ID, required: true}
+permissions:
+  contents: write
+  actions: read
+jobs:
+  mac:
+    runs-on: macos-15
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with: {ref: '${{ inputs.tag }}'}
+      - uses: actions/setup-node@v4
+        with: {node-version: 22}
+      - run: npm ci && node desktop/build.mjs && ditto -c -k --keepParent release/声格.app release/Shengge-macOS-arm64.zip
+      - env: {GH_TOKEN: '${{ github.token }}', TAG: '${{ inputs.tag }}'}
+        run: gh release upload "$TAG" release/Shengge-macOS-arm64.zip --clobber
+  packages:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with: {ref: '${{ inputs.tag }}'}
+      - uses: actions/download-artifact@v4
+        with:
+          name: linux64
+          run-id: ${{ inputs.native_run }}
+          github-token: ${{ github.token }}
+          path: release
+      - uses: actions/setup-node@v4
+        with: {node-version: 22}
+      - uses: actions/setup-go@v5
+        with: {go-version: '1.24.x', cache: false}
+      - run: npm ci && SHENGGE_OUTPUT=dist/desktop-training node scripts/build.mjs && python3 desktop/portable/package.py win64
+      - env: {GH_TOKEN: '${{ github.token }}', TAG: '${{ inputs.tag }}'}
+        run: gh release upload "$TAG" release/*.deb release/Shengge-Windows-x64.zip --clobber
