@@ -1,0 +1,30 @@
+name: iPhone device archive
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Existing release tag
+        required: true
+        type: string
+permissions:
+  contents: write
+jobs:
+  archive:
+    runs-on: macos-15
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+        with: {ref: '${{ inputs.tag }}'}
+      - uses: actions/setup-node@v4
+        with: {node-version: 22}
+      - run: npm ci && node ios/build.mjs
+      - run: |
+          xcodebuild -project ios/Shengge.xcodeproj -scheme Shengge -configuration Release -destination 'generic/platform=iOS' -archivePath "$RUNNER_TEMP/Shengge.xcarchive" CODE_SIGNING_ALLOWED=NO archive
+          test -x "$RUNNER_TEMP/Shengge.xcarchive/Products/Applications/Shengge.app/Shengge"
+          ditto -c -k --keepParent "$RUNNER_TEMP/Shengge.xcarchive" Shengge-iPhone-unsigned.xcarchive.zip
+      - uses: actions/upload-artifact@v4
+        with: {name: iPhone-unsigned-archive, path: Shengge-iPhone-unsigned.xcarchive.zip}
+      - env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ inputs.tag }}
+        run: gh release upload "$RELEASE_TAG" Shengge-iPhone-unsigned.xcarchive.zip --clobber
