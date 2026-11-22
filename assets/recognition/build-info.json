@@ -1,0 +1,18 @@
+{
+  "whisperCommit": "d1be6fde11ac6e0407606b4e42fe72d34add8037",
+  "emscripten": "7.0.0",
+  "emsdkRelease": "6afbd83493d647051772d491124187d4e9a0cda9",
+  "backend": "WebGPU + WASM SIMD/pthreads + JSPI",
+  "dtw": "small",
+  "hashes": {
+    "native/browser-asr/bridge.cpp": "47aca3aaa2eac8fba282daf906967ed6ec393e526c191a243b2c4dd6f1cab8e0",
+    "native/browser-asr/CMakeLists.txt": "362f66b9347a46857253f8232d2b82ee19c3e27bfb5789bdfb637acbe14c79f6",
+    "assets/recognition/shengge-asr.mjs": "bb527509a33b46da1889531dbaffcc4c4a65ea403b4a09a0118a9f2818538a67",
+    "assets/recognition/shengge-asr.wasm": "77899a18c9300cb9690af4c825f486ebd84d22abb7523dd4b62054502a3af5e4",
+    "native/browser-asr/repetition-guard.hpp": "f0760f5f35b1c1b9945bd42a64dbdf4f785e582ec915603f5c20f30ded6e118a",
+    "native/browser-asr/prepare-source.py": "3c15c136e69e7684ed9e2e75a8e0bf82fa53014538b36693e395ad9b37fb4a1c"
+  },
+  "decoderGuard": "64 exact repeating text tokens, periods 1-4; inputs <= 8 seconds; fail hypothesis and retain temperature fallback; last pass unchanged",
+  "whisperSourceOriginalSha256": "891168a838301bd2baa5e8b87422a854dafeeb7da914d40a2e4c6bf33ff448ed",
+  "whisperSourcePatchedSha256": "8dbfb453ca42938d13ca8cb42168830569d595dd745502b74a8948d75c0e14bd"
+}

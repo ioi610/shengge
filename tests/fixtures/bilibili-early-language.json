@@ -1,0 +1,94 @@
+{
+  "source": "docs/qa-0.8.22/initial-early-native.json",
+  "samples": [
+    {
+      "file": "initial-first-0823.f32",
+      "durationMs": 2432,
+      "sha256": "cdf25e825e224d02fa4b455db2a8e61dfb0fecc593441639f04d544779ea309a",
+      "language": "auto",
+      "transcript": {
+        "language": "japanese",
+        "segments": [
+          {
+            "confidence": 0.7081863880157471,
+            "endMs": 1520,
+            "startMs": 1360,
+            "text": "なるほど",
+            "timing": "aligned",
+            "words": [
+              {
+                "endMs": 1520,
+                "startMs": 1360,
+                "text": "なるほど"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "file": "initial-auto-0822.f32",
+      "durationMs": 5344,
+      "sha256": "545a49d15a97abe662b5e2aa284414cb6835071d12032971e8765fbc9dc2aeff",
+      "language": "auto",
+      "transcript": {
+        "language": "japanese",
+        "segments": [
+          {
+            "confidence": 0.6984921097755432,
+            "endMs": 1480,
+            "startMs": 1320,
+            "text": "なるほど",
+            "timing": "aligned",
+            "words": [
+              {
+                "endMs": 1480,
+                "startMs": 1320,
+                "text": "なるほど"
+              }
+            ]
+          },
+          {
+            "confidence": 0.7231370359659195,
+            "endMs": 5020,
+            "startMs": 3220,
+            "text": "宝物がわけだ",
+            "timing": "aligned",
+            "words": [
+              {
+                "endMs": 3380,
+                "startMs": 3220,
+                "text": "宝"
+              },
+              {
+                "endMs": 4160,
+                "startMs": 4000,
+                "text": "物"
+              },
+              {
+                "endMs": 4340,
+                "startMs": 4180,
+                "text": "が"
+              },
+              {
+                "endMs": 4720,
+                "startMs": 4560,
+                "text": "わ"
+              },
+              {
+                "endMs": 4840,
+                "startMs": 4680,
+                "text": "け"
+              },
+              {
+                "endMs": 5020,
+                "startMs": 4860,
+                "text": "だ"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

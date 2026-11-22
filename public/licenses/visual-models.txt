@@ -1,0 +1,5 @@
+The multilingual recognition dictionary is extracted from the PP-OCRv5 mobile recognizer by PaddleOCR, distributed in ONNX format by RapidAI (RapidOCR).
+PaddleOCR: https://github.com/PaddlePaddle/PaddleOCR
+RapidOCR model registry: https://github.com/RapidAI/RapidOCR/blob/main/python/rapidocr/default_models.yaml
+Pinned model release: https://www.modelscope.cn/models/RapidAI/RapidOCR/files?Revision=v3.10.0
+The browser downloads verified model weights and runs inference locally. See PaddleOCR.txt for the Apache License, Version 2.0.

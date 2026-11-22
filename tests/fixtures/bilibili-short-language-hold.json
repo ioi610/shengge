@@ -1,0 +1,79 @@
+{
+  "source": "docs/qa-0.8.21/hold-first-caption-audit.json",
+  "decodeId": 3,
+  "durationMs": 4896,
+  "raw": {
+    "language": "japanese",
+    "segments": [
+      {
+        "confidence": 0.6768442392349243,
+        "endMs": 1440,
+        "startMs": 1280,
+        "text": "なるほど",
+        "timing": "aligned",
+        "words": [
+          {
+            "endMs": 1440,
+            "startMs": 1280,
+            "text": "なるほど"
+          }
+        ]
+      },
+      {
+        "confidence": 0.7098779131968816,
+        "endMs": 4896,
+        "startMs": 3260,
+        "text": "宝物がわけだ",
+        "timing": "aligned",
+        "words": [
+          {
+            "endMs": 3420,
+            "startMs": 3260,
+            "text": "宝"
+          },
+          {
+            "endMs": 4180,
+            "startMs": 4020,
+            "text": "物"
+          },
+          {
+            "endMs": 4360,
+            "startMs": 4200,
+            "text": "が"
+          },
+          {
+            "endMs": 4740,
+            "startMs": 4580,
+            "text": "わ"
+          },
+          {
+            "endMs": 4860,
+            "startMs": 4700,
+            "text": "け"
+          },
+          {
+            "endMs": 4896,
+            "startMs": 4860,
+            "text": "だ"
+          }
+        ]
+      }
+    ]
+  },
+  "ranges": [
+    {
+      "start": 0,
+      "end": 2400,
+      "audioEnd": 2720,
+      "mediaStartMs": 293750,
+      "rate": 1
+    },
+    {
+      "start": 2720,
+      "end": 4768,
+      "audioEnd": 4896,
+      "mediaStartMs": 296099,
+      "rate": 1
+    }
+  ]
+}

@@ -1,0 +1,413 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1901413F353C99C3BB7325F3 /* PracticeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4861576BC4A3EAD182221E5E /* PracticeUITests.swift */; };
+		775815AFA6066C4B6F829A79 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7712F35B22EADBB7790ADD0B /* App.swift */; };
+		99A84AF12850AB9BB0A04707 /* Captions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 992ACDAAC641EC99A8417DFE /* Captions.swift */; };
+		BA29E1177CD8EDCD92EC40C4 /* Resources in Resources */ = {isa = PBXBuildFile; fileRef = FC563BB2A01D3BAD0520AA59 /* Resources */; };
+		D2874E8A2AF4F0444EB7B355 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EAAD52E3D44CFDF2603A5B5 /* Player.swift */; };
+		E4B89B05728E4C8F631C5340 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 883512865A42FA9938562F26 /* Assets.xcassets */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		747392B955ABD4C21990F7CA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E7C8CF11C7BE572BBBA17D0E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 41D3DBF8B37BE3612F50E805;
+			remoteInfo = Shengge;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		19CAA9C3268AC29EE72D694A /* ShenggeUITests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = ShenggeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		3EAAD52E3D44CFDF2603A5B5 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
+		4861576BC4A3EAD182221E5E /* PracticeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeUITests.swift; sourceTree = "<group>"; };
+		5F0ADB2523BC32EBEA7CDACB /* Shengge.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Shengge.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		7712F35B22EADBB7790ADD0B /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
+		883512865A42FA9938562F26 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		992ACDAAC641EC99A8417DFE /* Captions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Captions.swift; sourceTree = "<group>"; };
+		FC563BB2A01D3BAD0520AA59 /* Resources */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Resources; sourceTree = SOURCE_ROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		11095F78A5A724FA7D4E061F = {
+			isa = PBXGroup;
+			children = (
+				7712F35B22EADBB7790ADD0B /* App.swift */,
+				883512865A42FA9938562F26 /* Assets.xcassets */,
+				992ACDAAC641EC99A8417DFE /* Captions.swift */,
+				3EAAD52E3D44CFDF2603A5B5 /* Player.swift */,
+				4861576BC4A3EAD182221E5E /* PracticeUITests.swift */,
+				FC563BB2A01D3BAD0520AA59 /* Resources */,
+				491F3DCCBF9E8A2C62C760FE /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		491F3DCCBF9E8A2C62C760FE /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				5F0ADB2523BC32EBEA7CDACB /* Shengge.app */,
+				19CAA9C3268AC29EE72D694A /* ShenggeUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		41D3DBF8B37BE3612F50E805 /* Shengge */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1DC3C6E8604D5F770DEE4CED /* Build configuration list for PBXNativeTarget "Shengge" */;
+			buildPhases = (
+				6C88208E68E826827FA4DE90 /* Sources */,
+				5975683E2800A35F4B39EBD8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Shengge;
+			packageProductDependencies = (
+			);
+			productName = Shengge;
+			productReference = 5F0ADB2523BC32EBEA7CDACB /* Shengge.app */;
+			productType = "com.apple.product-type.application";
+		};
+		804A786B365F5D1F95088DAC /* ShenggeUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F8C448D987586A5480DD9324 /* Build configuration list for PBXNativeTarget "ShenggeUITests" */;
+			buildPhases = (
+				F96ECDAEBE114780A302F30D /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				2680C9A3C82191ED6156D2A5 /* PBXTargetDependency */,
+			);
+			name = ShenggeUITests;
+			packageProductDependencies = (
+			);
+			productName = ShenggeUITests;
+			productReference = 19CAA9C3268AC29EE72D694A /* ShenggeUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		E7C8CF11C7BE572BBBA17D0E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1600;
+				TargetAttributes = {
+					804A786B365F5D1F95088DAC = {
+						TestTargetID = 41D3DBF8B37BE3612F50E805;
+					};
+				};
+			};
+			buildConfigurationList = D1FFED41CE6A352FFBF9F44B /* Build configuration list for PBXProject "Shengge" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 11095F78A5A724FA7D4E061F;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 491F3DCCBF9E8A2C62C760FE /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				41D3DBF8B37BE3612F50E805 /* Shengge */,
+				804A786B365F5D1F95088DAC /* ShenggeUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		5975683E2800A35F4B39EBD8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E4B89B05728E4C8F631C5340 /* Assets.xcassets in Resources */,
+				BA29E1177CD8EDCD92EC40C4 /* Resources in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		6C88208E68E826827FA4DE90 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				775815AFA6066C4B6F829A79 /* App.swift in Sources */,
+				99A84AF12850AB9BB0A04707 /* Captions.swift in Sources */,
+				D2874E8A2AF4F0444EB7B355 /* Player.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F96ECDAEBE114780A302F30D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1901413F353C99C3BB7325F3 /* PracticeUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		2680C9A3C82191ED6156D2A5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 41D3DBF8B37BE3612F50E805 /* Shengge */;
+			targetProxy = 747392B955ABD4C21990F7CA /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		5BEB4B5BCA6D838854DE3F82 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		7DC17783CDE640E4FB0C2121 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = app.shengge.mobile.uitests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Shengge;
+			};
+			name = Debug;
+		};
+		81886224265B5B4C7FDC6AE1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "声格";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
+				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "在本机识别当前视频中的对白并生成练习字幕。";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 0.3.5;
+				PRODUCT_BUNDLE_IDENTIFIER = app.shengge.mobile;
+				PRODUCT_NAME = Shengge;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		AA5D5FB178934FC9F1754C5D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = app.shengge.mobile.uitests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Shengge;
+			};
+			name = Release;
+		};
+		E748D5C346C20D4CF855602D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "声格";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
+				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "在本机识别当前视频中的对白并生成练习字幕。";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 0.3.5;
+				PRODUCT_BUNDLE_IDENTIFIER = app.shengge.mobile;
+				PRODUCT_NAME = Shengge;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		FA7FA50D88745C6D612CE03D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1DC3C6E8604D5F770DEE4CED /* Build configuration list for PBXNativeTarget "Shengge" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E748D5C346C20D4CF855602D /* Debug */,
+				81886224265B5B4C7FDC6AE1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		D1FFED41CE6A352FFBF9F44B /* Build configuration list for PBXProject "Shengge" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FA7FA50D88745C6D612CE03D /* Debug */,
+				5BEB4B5BCA6D838854DE3F82 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		F8C448D987586A5480DD9324 /* Build configuration list for PBXNativeTarget "ShenggeUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7DC17783CDE640E4FB0C2121 /* Debug */,
+				AA5D5FB178934FC9F1754C5D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = E7C8CF11C7BE572BBBA17D0E /* Project object */;
+}

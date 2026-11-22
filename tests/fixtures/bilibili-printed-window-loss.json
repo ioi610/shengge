@@ -1,0 +1,31 @@
+{
+  "source": ".qa/playlist-2026-11-21/rescue-evidence.json",
+  "videoKey": "bilibili:BV12h4y1Q73F:p1",
+  "previousEndMs": 156972,
+  "emptyWindow": {
+    "origin": 156965,
+    "end": 182870
+  },
+  "visibleFrames": [
+    {
+      "mediaSec": 167.7,
+      "text": "わわかった"
+    },
+    {
+      "mediaSec": 169.9,
+      "text": "今のうち"
+    },
+    {
+      "mediaSec": 172.4,
+      "text": "た…たすけに来ました"
+    }
+  ],
+  "nextBoundary": {
+    "startMs": 193610,
+    "endMs": 196383,
+    "text": "どうしようどうしよう",
+    "language": "ja",
+    "confidence": 0.99
+  },
+  "limits": "Observed source intervals and visible frames; test readers and voice bins are doubles, not retained production target-time VAD or exact OCR line boundaries."
+}

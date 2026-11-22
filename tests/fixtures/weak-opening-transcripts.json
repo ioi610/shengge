@@ -1,0 +1,195 @@
+[
+  {
+    "offset": 0,
+    "rows": [
+      {
+        "startMs": 820,
+        "endMs": 1600,
+        "text": "えっ!?",
+        "confidence": 0.5152226562301317,
+        "timing": "aligned",
+        "words": [
+          {
+            "startMs": 820,
+            "endMs": 980,
+            "text": "え"
+          },
+          {
+            "startMs": 1440,
+            "endMs": 1600,
+            "text": "っ"
+          },
+          {
+            "startMs": 1440,
+            "endMs": 1600,
+            "text": "!?"
+          }
+        ]
+      },
+      {
+        "startMs": 1740,
+        "endMs": 2440,
+        "text": "すごい!",
+        "confidence": 0.9931613504886627,
+        "timing": "aligned",
+        "words": [
+          {
+            "startMs": 1740,
+            "endMs": 1900,
+            "text": " す"
+          },
+          {
+            "startMs": 1860,
+            "endMs": 2020,
+            "text": "ご"
+          },
+          {
+            "startMs": 1980,
+            "endMs": 2140,
+            "text": "い"
+          },
+          {
+            "startMs": 2280,
+            "endMs": 2440,
+            "text": "!"
+          }
+        ]
+      },
+      {
+        "startMs": 2320,
+        "endMs": 3580,
+        "text": "もう勉強!?",
+        "confidence": 0.996932864189148,
+        "timing": "aligned",
+        "words": [
+          {
+            "startMs": 2320,
+            "endMs": 2480,
+            "text": " "
+          },
+          {
+            "startMs": 2540,
+            "endMs": 2700,
+            "text": "もう"
+          },
+          {
+            "startMs": 2680,
+            "endMs": 2840,
+            "text": "勉"
+          },
+          {
+            "startMs": 2880,
+            "endMs": 3040,
+            "text": "強"
+          },
+          {
+            "startMs": 3420,
+            "endMs": 3580,
+            "text": "!?"
+          }
+        ]
+      },
+      {
+        "startMs": 3700,
+        "endMs": 4128,
+        "text": "えっ!?",
+        "confidence": 0.9292386174201965,
+        "timing": "aligned",
+        "words": [
+          {
+            "startMs": 3700,
+            "endMs": 3860,
+            "text": " え"
+          },
+          {
+            "startMs": 3880,
+            "endMs": 4040,
+            "text": "っ"
+          },
+          {
+            "startMs": 3980,
+            "endMs": 4128,
+            "text": "!?"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "offset": 192,
+    "rows": [
+      {
+        "startMs": 740,
+        "endMs": 2240,
+        "text": "えっ、すごい!",
+        "confidence": 0.47819801047444344,
+        "timing": "aligned",
+        "words": [
+          {
+            "startMs": 740,
+            "endMs": 900,
+            "text": "えっ"
+          },
+          {
+            "startMs": 1440,
+            "endMs": 1600,
+            "text": "、"
+          },
+          {
+            "startMs": 1700,
+            "endMs": 1860,
+            "text": "すごい"
+          },
+          {
+            "startMs": 2080,
+            "endMs": 2240,
+            "text": "!"
+          }
+        ]
+      },
+      {
+        "startMs": 2360,
+        "endMs": 3380,
+        "text": "もう勉強?",
+        "confidence": 0.6253773346543312,
+        "timing": "aligned",
+        "words": [
+          {
+            "startMs": 2360,
+            "endMs": 2520,
+            "text": "もう"
+          },
+          {
+            "startMs": 2520,
+            "endMs": 2680,
+            "text": "勉"
+          },
+          {
+            "startMs": 2700,
+            "endMs": 2860,
+            "text": "強"
+          },
+          {
+            "startMs": 3220,
+            "endMs": 3380,
+            "text": "?"
+          }
+        ]
+      },
+      {
+        "startMs": 3540,
+        "endMs": 3700,
+        "text": "はい",
+        "confidence": 0.2903648316860199,
+        "timing": "aligned",
+        "words": [
+          {
+            "startMs": 3540,
+            "endMs": 3700,
+            "text": "はい"
+          }
+        ]
+      }
+    ]
+  }
+]

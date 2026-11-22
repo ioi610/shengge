@@ -1,0 +1,30 @@
+{
+  "source": ".qa/playlist-2026-11-21/BV1C94y1s7kM-trace.json",
+  "origin": 2613,
+  "line": {
+    "startMs": 3687,
+    "endMs": 6326,
+    "text": "プリントしたヤツお披露目"
+  },
+  "reviews": [
+    {
+      "startMs": 3634,
+      "endMs": 5645,
+      "startedAt": 11703
+    },
+    {
+      "startMs": 3657,
+      "endMs": 6523,
+      "startedAt": 11945
+    },
+    {
+      "startMs": 5673,
+      "endMs": 6522,
+      "startedAt": 11945
+    }
+  ],
+  "holdAt": 11939,
+  "wallElapsedMs": 51638,
+  "holdMs": 20413,
+  "limits": "Trace records candidate ranges/start times but does not retain their enqueue times, raw/focused flag or speaker-change reason. Lifecycle tests isolate the reported common-onset hold with raw turn-end doubles; no claim of wall-clock speedup."
+}

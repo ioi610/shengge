@@ -1,0 +1,15 @@
+import {readFile} from 'node:fs/promises';
+import assert from 'node:assert/strict';
+import {unzipSync} from 'fflate';
+const report=JSON.parse(await readFile('release/size-report.json','utf8'));
+const extension=unzipSync(await readFile(report.extension.path));const files=Object.keys(extension);
+assert(files.every(p=>p.startsWith('extension/')));
+assert(!files.some(p=>/\.map$|\/media\/|\/web\/|ffmpeg|\.bin$|\.command$|node_modules|whisper-server/.test(p)));
+const manifest=JSON.parse(Buffer.from(extension['extension/manifest.json']).toString());assert.equal(manifest.version,report.version);assert.equal(manifest.externally_connectable,undefined);assert.deepEqual(manifest.permissions,['activeTab','scripting','offscreen','unlimitedStorage']);assert.equal(manifest.host_permissions,undefined);assert.equal(manifest.cross_origin_embedder_policy.value,'require-corp');assert.equal(manifest.cross_origin_opener_policy.value,'same-origin');
+for(const p of ['app.js','background.js','content.js','recognition-offscreen.js','recognition-offscreen.html','recognition-worker.js','turn-worker.js','asr/shengge-asr.mjs','asr/shengge-asr.wasm','asr/WHISPER-LICENSE.txt','vad/speaker-turns.onnx','vad/silero_vad_v5.onnx','vad/ort-wasm-simd-threaded.wasm'])assert(extension['extension/'+p]?.length,p);
+for(const p of files.filter(p=>/\.[mc]?js$/.test(p)))assert(!/127\.0\.0\.1:417[56]|启动本机识别|node:child_process/.test(Buffer.from(extension[p]).toString()),'no companion dependency: '+p);
+const meta=JSON.parse(await readFile('dist/bundle-analysis.json','utf8'));
+assert(!Object.keys(meta.app.inputs).some(p=>/onnx|workspace|local-video|demo/.test(p)),'dashboard must not bundle player/model runtime twice');
+assert(!Object.values(meta).some(graph=>Object.keys(graph.inputs).some(p=>/local-asr-service|fast-transcription/.test(p))),'no native service in extension');
+assert(report.extension.downloadBytes<14_000_000,'extension size budget exceeded');assert.equal(report.recognition.separateInstall,false);
+console.log('PASS: single extension, bundled runtime, persistent model cache, no Node/helper/local server permission, size budget.');

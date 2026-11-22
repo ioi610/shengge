@@ -1,0 +1,31 @@
+{
+  "name": "kotoba-scene",
+  "version": "0.8.25",
+  "private": true,
+  "type": "module",
+  "description": "声格 Chrome 扩展：多语言对白复读、跟读和接话自评",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "check": "tsc --noEmit",
+    "test": "node --import tsx --test tests/*.test.ts",
+    "dev": "npm run build",
+    "package": "npm run check && npm test && npm run build && node scripts/package.mjs && node scripts/verify-package.mjs",
+    "desktop:build": "node desktop/build.mjs"
+  },
+  "devDependencies": {
+    "@types/chrome": "0.0.287",
+    "@types/node": "22.10.2",
+    "esbuild": "0.24.2",
+    "fake-indexeddb": "6.0.0",
+    "fflate": "0.8.2",
+    "tsx": "4.19.2",
+    "typescript": "5.7.2"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "dependencies": {
+    "@ricky0123/vad-web": "0.0.30",
+    "onnxruntime-web": "1.31.1"
+  }
+}

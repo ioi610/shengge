@@ -1,0 +1,3 @@
+import test from 'node:test';import assert from 'node:assert/strict';import {dialogueLeadIn} from '../src/dialogue-lead-in';
+test('the real accessory reply keeps its quiet prefix without extending its end',()=>{assert.deepEqual(dialogueLeadIn({startMs:263748,endMs:265571},261346),{startMs:263268,endMs:265571});});
+test('lead-in cannot overlap the previous sentence or precede the selected start',()=>{for(const startMs of [1000,1100,1479,1480]){const result=dialogueLeadIn({startMs,endMs:2000},1000);assert.equal(result.startMs,1000);assert.equal(result.endMs,2000);}assert.equal(dialogueLeadIn({startMs:1600,endMs:2000},1000).startMs,1120);});

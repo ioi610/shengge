@@ -1,0 +1,12 @@
+{
+  "source": ".qa/playlist-2026-11-21/BV1WC4y1f7rw-live.json",
+  "text": "スイッチで…洞窟が開いて…友だちになりました",
+  "stored": [{"startMs":12268,"endMs":14768},{"startMs":14769,"endMs":16370}],
+  "visibleFrameMs": [12500,14400,15400,15800,16100,16250],
+  "absentFrameMs": 16450,
+  "limitations": [
+    "The saved recognition trace begins after 78 seconds and does not retain this window.",
+    "Tests use controlled reader/clock observations to reproduce the unsafe scheduling paths; these are not a reconstruction of the historical OCR callbacks.",
+    "Native frames independently show the same printed line at 16.25 seconds and no line at 16.45 seconds; intermediate reader callbacks remain controlled test inputs."
+  ]
+}

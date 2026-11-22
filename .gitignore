@@ -1,0 +1,12 @@
+node_modules/
+dist/
+release/
+.qa/
+.local-asr/
+*.log
+
+.DS_Store
+xcuserdata/
+*.xcuserstate
+build/
+__pycache__/

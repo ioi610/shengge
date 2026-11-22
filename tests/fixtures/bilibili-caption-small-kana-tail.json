@@ -1,0 +1,79 @@
+{
+  "source": "docs/qa-0.8.23/caption-audit.json index 3",
+  "durationMs": 2096,
+  "range": {
+    "end": 1776,
+    "mediaStartMs": 312221,
+    "prefixMs": 400,
+    "start": 400,
+    "suffixMs": 320
+  },
+  "transcript": {
+    "language": "japanese",
+    "segments": [
+      {
+        "confidence": 0.9383262991905212,
+        "endMs": 880,
+        "startMs": 260,
+        "text": "はぁ!",
+        "timing": "aligned",
+        "words": [
+          {
+            "endMs": 420,
+            "startMs": 260,
+            "text": "は"
+          },
+          {
+            "endMs": 880,
+            "startMs": 720,
+            "text": "ぁ"
+          },
+          {
+            "endMs": 880,
+            "startMs": 720,
+            "text": "!"
+          }
+        ]
+      },
+      {
+        "confidence": 0.9306488136450448,
+        "endMs": 2096,
+        "startMs": 960,
+        "text": "うっ、やっ!",
+        "timing": "aligned",
+        "words": [
+          {
+            "endMs": 1120,
+            "startMs": 960,
+            "text": "う"
+          },
+          {
+            "endMs": 1700,
+            "startMs": 1540,
+            "text": "っ"
+          },
+          {
+            "endMs": 1760,
+            "startMs": 1600,
+            "text": "、"
+          },
+          {
+            "endMs": 1900,
+            "startMs": 1740,
+            "text": "や"
+          },
+          {
+            "endMs": 2096,
+            "startMs": 2060,
+            "text": "っ"
+          },
+          {
+            "endMs": 2096,
+            "startMs": 2060,
+            "text": "!"
+          }
+        ]
+      }
+    ]
+  }
+}

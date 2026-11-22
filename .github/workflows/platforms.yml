@@ -1,0 +1,78 @@
+name: Platform packages
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  ios:
+    runs-on: macos-15
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: 22}
+      - run: npm ci && node ios/build.mjs
+      - name: Build for iPhone and Simulator
+        run: |
+          mkdir -p release
+          xcodebuild -project ios/Shengge.xcodeproj -scheme Shengge -configuration Release -sdk iphoneos -derivedDataPath build/phone CODE_SIGNING_ALLOWED=NO build
+          xcodebuild -project ios/Shengge.xcodeproj -scheme Shengge -configuration Debug -sdk iphonesimulator -derivedDataPath build/sim build
+          ditto -c -k --keepParent build/sim/Build/Products/Debug-iphonesimulator/Shengge.app release/Shengge-iOS-Simulator.zip
+      - name: Exercise the bundled video and history on iPhone
+        run: |
+          device=$(xcrun simctl list devices available -j | python3 -c 'import json,sys;print(next(d["udid"] for ds in json.load(sys.stdin)["devices"].values() for d in ds if d["name"].startswith("iPhone")))')
+          xcrun simctl boot "$device"
+          xcrun simctl bootstatus "$device" -b
+          xcodebuild test -project ios/Shengge.xcodeproj -scheme Shengge -destination "platform=iOS Simulator,id=$device" -parallel-testing-enabled NO -derivedDataPath build/sim
+      - uses: actions/upload-artifact@v4
+        with: {name: iOS-Simulator, path: release/Shengge-iOS-Simulator.zip}
+      - if: startsWith(github.ref, 'refs/tags/')
+        env: {GH_TOKEN: '${{ github.token }}'}
+        run: gh release upload "$GITHUB_REF_NAME" release/Shengge-iOS-Simulator.zip --clobber
+  desktop:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - {runner: windows-2022, target: win64}
+          - {runner: ubuntu-22.04, target: linux64}
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: 22}
+      - uses: actions/setup-go@v5
+        with: {go-version: '1.24.x', cache: false}
+      - run: npm ci
+      - run: node scripts/build.mjs
+        env: {SHENGGE_OUTPUT: dist/desktop-training}
+      - run: python desktop/portable/package.py ${{ matrix.target }}
+      - if: runner.os == 'Windows'
+        shell: pwsh
+        run: '& "${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe" desktop/portable/windows.iss'
+      - name: Load the player in its native browser runtime
+        shell: bash
+        run: |
+          npm install --prefix "$RUNNER_TEMP/sg-smoke" playwright-core@1.56.1
+          if [ "$RUNNER_OS" = "Linux" ]; then
+            sudo dpkg -i release/*.deb
+            xvfb-run -a node desktop/portable/smoke.cjs /opt/shengge "$RUNNER_TEMP/sg-smoke"
+          else
+            node desktop/portable/smoke.cjs dist/portable-win64 "$RUNNER_TEMP/sg-smoke"
+          fi
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.target }}
+          path: |
+            release/*.exe
+            release/*.deb
+      - if: startsWith(github.ref, 'refs/tags/')
+        shell: bash
+        env: {GH_TOKEN: '${{ github.token }}'}
+        run: |
+          shopt -s nullglob
+          packages=(release/*.exe release/*.deb)
+          gh release upload "$GITHUB_REF_NAME" "${packages[@]}" --clobber

@@ -1,0 +1,7 @@
+{
+  "source": "docs/qa-0.8.21/translation-probe.jsonl",
+  "case": "observed-question-draft",
+  "text": "なんだお前",
+  "draft": "What are you",
+  "raw": "{\"translation\":\"What is that of you?\"}"
+}

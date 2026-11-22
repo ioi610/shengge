@@ -1,0 +1,49 @@
+name: Shengge
+options:
+  bundleIdPrefix: app.shengge
+  deploymentTarget:
+    iOS: "16.0"
+targets:
+  Shengge:
+    type: application
+    platform: iOS
+    sources:
+      - App.swift
+      - Captions.swift
+      - Player.swift
+      - path: Resources
+        type: folder
+        buildPhase: resources
+      - Assets.xcassets
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: app.shengge.mobile
+        PRODUCT_NAME: Shengge
+        SWIFT_VERSION: "5.0"
+        TARGETED_DEVICE_FAMILY: "1,2"
+        CURRENT_PROJECT_VERSION: 1
+        MARKETING_VERSION: 0.3.5
+        GENERATE_INFOPLIST_FILE: YES
+        INFOPLIST_KEY_CFBundleDisplayName: 声格
+        INFOPLIST_KEY_LSApplicationCategoryType: public.app-category.education
+        INFOPLIST_KEY_NSSpeechRecognitionUsageDescription: 在本机识别当前视频中的对白并生成练习字幕。
+        INFOPLIST_KEY_UIApplicationSceneManifest_Generation: YES
+        INFOPLIST_KEY_UILaunchScreen_Generation: YES
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+  ShenggeUITests:
+    type: bundle.ui-testing
+    platform: iOS
+    sources: [PracticeUITests.swift]
+    dependencies:
+      - target: Shengge
+    settings:
+      base:
+        GENERATE_INFOPLIST_FILE: YES
+        PRODUCT_BUNDLE_IDENTIFIER: app.shengge.mobile.uitests
+schemes:
+  Shengge:
+    build:
+      targets:
+        Shengge: all
+    test:
+      targets: [ShenggeUITests]
