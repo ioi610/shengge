@@ -12,9 +12,9 @@
 | iPhone / iPad，iOS 16+ | Shengge-iOS-Xcode.zip | 在 Mac 解压，用 Xcode 打开 Shengge.xcodeproj。在 Signing & Capabilities 选择自己的 Team，选择已连接的设备并运行。真机签名使用自己的 Bundle Identifier。 |
 | Chrome 桌面扩展，137+ | Shengge-Chrome.zip | 解压后打开「安装说明.html」。在 chrome://extensions 打开开发者模式，选择「加载已解压的扩展程序」，选中 extension。 |
 
-[观看中文操作视频](https://github.com/ioi610/shengge/releases/download/v0.3.5-r2/Shengge-Guide-zh-CN.mp4)
+[观看中文操作视频](https://github.com/ioi610/shengge/releases/latest/download/Shengge-Guide-zh-CN.mp4)
 
-iOS 发布文件还包括供开发者签名的 iPhone 设备归档。真机安装可通过上表的 Xcode 工程完成。TestFlight 和 App Store 分发需要使用 Apple 开发者账号签名。
+iOS 发布文件还包括供开发者签名的 iPhone 设备归档和可通过 Xcode 模拟器安装的版本。真机安装可通过上表的 Xcode 工程完成。TestFlight 和 App Store 分发需要使用 Apple 开发者账号签名。
 
 ## 第一次练习
 
