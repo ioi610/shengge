@@ -3,10 +3,10 @@ import {resolveSource} from '../src/domain';
 
 // Execute the real content controller; replace only its UI/storage boundaries.
 const names:Record<string,string[]>={
- './printed-language-history':['priorPrintedLines'],'./config':['BUILD_VERSION'],'./player-dock':['PlayerDock'],'./client':['extensionClient'],'./backend-status':['verifyBackend'],'./domain':['message','resolveSource'],'./player':['VideoAdapter'],'./workspace':['Workspace'],'./dom':['button','h','status','text'],'./subtitles':['preferredSubtitleTrack','readableSubtitleTracks'],'./subtitle-controls':['subtitleControls'],'./theme':['applyAppearance'],
+ './printed-language-history':['priorPrintedLines'],'./config':['BUILD_VERSION','desktopTraining'],'../desktop/platform-captions':['biliLines'],'../desktop/player-view':['desktopPlayer','DesktopDock','desktopPage'],'./player-dock':['PlayerDock'],'./client':['extensionClient'],'./backend-status':['verifyBackend'],'./domain':['message','resolveSource'],'./player':['VideoAdapter'],'./workspace':['Workspace'],'./dom':['button','h','status','text'],'./subtitles':['preferredSubtitleTrack','readableSubtitleTracks'],'./subtitle-controls':['subtitleControls'],'./theme':['applyAppearance'],
 };
 const bundled=build({entryPoints:[new URL('../src/content.ts',import.meta.url).pathname],bundle:true,write:false,format:'iife',plugins:[{name:'content-boundaries',setup(b){
- b.onResolve({filter:/^\.\//},args=>({path:args.path,namespace:'boundary'}));
+ b.onResolve({filter:/^\.{1,2}\//},args=>({path:args.path,namespace:'boundary'}));
  b.onLoad({filter:/.*/,namespace:'boundary'},args=>({contents:args.path.endsWith('.css')?'export default ""':names[args.path].map(name=>`export const ${name}=globalThis.__contentDeps[${JSON.stringify(args.path)}].${name};`).join('\n'),loader:'js'}));
 }}]}).then(r=>r.outputFiles[0].text);
 const tick=()=>new Promise<void>(r=>setImmediate(r));
@@ -40,7 +40,7 @@ async function setup(t:import('node:test').TestContext){
  const clip={id:'interrupted-clip',videoKey:resolveSource(location.href).videoKey,durationMs:630000,settings:{targetDefault:2},current:1,segments:[{id:'one'},{id:'two'}],progress:{two:{count:1,target:2}}};
  let getRecord:()=>Promise<any>=async()=>structuredClone(clip),release:()=>Promise<void>=async()=>{};
  const deps:any={
-  './config':{BUILD_VERSION:'test'},'./printed-language-history':{priorPrintedLines:()=>[]},'./backend-status':{verifyBackend:()=>{}},'./domain':{resolveSource,message:(e:Error)=>e.message},
+  './config':{BUILD_VERSION:'test'},'../desktop/platform-captions':{},'../desktop/player-view':{},'./printed-language-history':{priorPrintedLines:()=>[]},'./backend-status':{verifyBackend:()=>{}},'./domain':{resolveSource,message:(e:Error)=>e.message},
   './theme':{applyAppearance:()=>{}},'./subtitles':{readableSubtitleTracks:()=>[],preferredSubtitleTrack:()=>undefined},'./subtitle-controls':{subtitleControls:()=>h('subtitles')},
   './dom':{h,text:(s:string)=>{const e=h('text');e.label=s;return e;},button:(s:string,run:()=>void)=>{const e=h('button');e.label=s;(e as any).run=run;return e;},status:(s:string,action?:{label:string;run:()=>void})=>{const e=h('status');e.label=s;if(action){const b=h('button');b.label=action.label;b.addEventListener('click',action.run);e.append(b);}return e;}},
   './client':{extensionClient:()=>{const c:any={clip:undefined,hello:async()=>{},call:async(type:string,payload:any,id?:string)=>{requests.push({type,payload,id});return type==='GET_RECORD'?getRecord():{clips:[structuredClone(clip)]};},dispose:()=>release()};clients.push(c);return c;}},

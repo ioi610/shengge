@@ -18,8 +18,8 @@ jobs:
         run: |
           mkdir -p release
           xcodebuild -project ios/Shengge.xcodeproj -scheme Shengge -configuration Release -sdk iphoneos -derivedDataPath build/phone CODE_SIGNING_ALLOWED=NO build
-          xcodebuild -project ios/Shengge.xcodeproj -scheme Shengge -configuration Debug -sdk iphonesimulator -derivedDataPath build/sim build
-          ditto -c -k --keepParent build/sim/Build/Products/Debug-iphonesimulator/Shengge.app release/Shengge-iOS-Simulator.zip
+          xcodebuild -project ios/Shengge.xcodeproj -scheme Shengge -configuration Release -destination "generic/platform=iOS Simulator" -sdk iphonesimulator -derivedDataPath build/sim build
+          ditto -c -k --keepParent build/sim/Build/Products/Release-iphonesimulator/Shengge.app release/Shengge-iOS-Simulator.zip
       - name: Exercise the bundled video and history on iPhone
         run: |
           device=$(xcrun simctl list devices available -j | python3 -c 'import json,sys;print(next(d["udid"] for ds in json.load(sys.stdin)["devices"].values() for d in ds if d["name"].startswith("iPhone")))')
@@ -69,10 +69,10 @@ jobs:
           path: |
             release/*.exe
             release/*.deb
-      - if: startsWith(github.ref, 'refs/tags/')
+      - if: startsWith(github.ref, 'refs/tags/') && runner.os == 'Windows'
         shell: bash
         env: {GH_TOKEN: '${{ github.token }}'}
         run: |
           shopt -s nullglob
-          packages=(release/*.exe release/*.deb)
+          packages=(release/*.exe)
           gh release upload "$GITHUB_REF_NAME" "${packages[@]}" --clobber

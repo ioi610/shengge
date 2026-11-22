@@ -24,7 +24,7 @@ struct VideoRecord: Codable, Identifiable {
 private struct Source: Decodable { let url: String; let videoKey: String }
 enum Mode: String { case watch = "播放", listen = "复读", shadow = "跟读", cue = "接话" }
 enum Phase { case idle, playing, gap, waiting, answering, rating }
-private func resource(_ name: String, _ ext: String) -> URL { Bundle.main.url(forResource:name, withExtension:ext,subdirectory:"Resources")! }
+private func resource(_ name: String, _ ext: String) -> URL { Bundle.main.url(forResource:name, withExtension:ext,subdirectory:"PlayerAssets")! }
 @MainActor final class Player: NSObject, ObservableObject, WKNavigationDelegate {
     @Published var history: [VideoRecord] = []
     @Published var record: VideoRecord?
@@ -200,7 +200,7 @@ private func resource(_ name: String, _ ext: String) -> URL { Bundle.main.url(fo
         },onError:{[weak self] message in guard let self,self.generation==g else{return};self.stopSpeech();self.note=message})}
         catch{stopSpeech();throw error}
     }
-    func stopSpeech(){recognizing=false;speech.stop()}
+    func stopSpeech(){speech.stop();recognizing=false}
     func site() async throws { _=try await command("site") }
 }
 struct Failure: LocalizedError {let value:String;init(_ v:String){value=v};var errorDescription:String?{value}}

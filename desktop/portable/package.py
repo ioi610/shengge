@@ -31,7 +31,7 @@ def archive_tar(path, source, prefix, sandbox=False):
         info.uid=info.gid=0; info.uname=info.gname="root"
         if sandbox and info.name.endswith("/runtime/chrome_sandbox"): info.mode=0o4755
         return info
-    with tarfile.open(path,"w:gz",compresslevel=5) as tar:
+    with tarfile.open(path,"w:gz",compresslevel=5,format=tarfile.GNU_FORMAT) as tar:
         tar.add(source,arcname=prefix,filter=metadata)
 
 def debian(stage, out, work):

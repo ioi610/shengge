@@ -94,7 +94,7 @@ export class Workspace {
    this.playbackReader??=new LivePlaybackCaptions(video,()=>this.sourceLanguage,this.playbackTimeline);
   }else if(!listen)this.stopPlaybackReader();
   this.lastCaptionStatus=this.playbackReader?.status;
-  if(oldStatus!==this.lastCaptionStatus||this.timelineRevision!==this.playbackTimeline.revision){
+  if(desktopTraining&&(oldStatus!==this.lastCaptionStatus||this.timelineRevision!==this.playbackTimeline.revision)){
    this.timelineRevision=this.playbackTimeline.revision;this.root.dispatchEvent(new Event('desktop-state'));
   }
   const cached=desktopTraining&&this.showCaptions&&!this.discovering&&line&&!line.text?this.playbackTimeline.match(line.startMs/1000,line.endMs/1000):undefined;

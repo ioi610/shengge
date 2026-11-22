@@ -11,7 +11,7 @@ targets:
       - App.swift
       - Captions.swift
       - Player.swift
-      - path: Resources
+      - path: PlayerAssets
         type: folder
         buildPhase: resources
       - Assets.xcassets
