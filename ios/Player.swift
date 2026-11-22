@@ -39,23 +39,29 @@ private func resource(_ name: String, _ ext: String) -> URL { Bundle.main.url(fo
     @Published var marking: Double?
     @Published var recognizing = false
     @Published var language = "ja-JP"
-    let web: WKWebView
-    private let js = JSContext()!
+    private(set) lazy var web: WKWebView = makeWebView()
+    private lazy var js: JSContext = {
+        let context=JSContext()!
+        context.evaluateScript(try! String(contentsOf:resource("shared","js"),encoding:.utf8))
+        return context
+    }()
     private let world = WKContentWorld.defaultClient
     private var generation = UUID(), run = "", nextAt: Date?, timer: Timer?
     private var polling = false, restore = false, lastSave = 0.0, duration = 0.0
     private let speech = Captions()
     private let store = "shengge.videos.v1"
-    override init() {
+    private func makeWebView() -> WKWebView {
         let config = WKWebViewConfiguration()
         config.allowsInlineMediaPlayback = true
         config.mediaTypesRequiringUserActionForPlayback = []
         let source = try! String(contentsOf: resource("media","js"),encoding:.utf8)
         config.userContentController.addUserScript(WKUserScript(source:source,injectionTime:.atDocumentEnd,forMainFrameOnly:true,in: .defaultClient))
-        web = WKWebView(frame:.zero,configuration:config)
+        let view=WKWebView(frame:.zero,configuration:config)
+        view.navigationDelegate=self
+        return view
+    }
+    override init() {
         super.init()
-        web.navigationDelegate = self
-        js.evaluateScript(try! String(contentsOf:resource("shared","js"),encoding:.utf8))
         if let data=UserDefaults.standard.data(forKey:store),let saved=try? JSONDecoder().decode([VideoRecord].self,from:data) { history=saved }
         timer=Timer.scheduledTimer(withTimeInterval:0.22,repeats:true){ [weak self] _ in Task { @MainActor in await self?.poll() } }
     }

@@ -1,0 +1,55 @@
+name: Verify and package iPhone
+on:
+  workflow_dispatch:
+    inputs:
+      source: {description: Mobile source tag, required: true}
+      release_tag: {description: Existing release tag, required: true}
+permissions:
+  contents: write
+jobs:
+  ios:
+    runs-on: macos-15
+    timeout-minutes: 25
+    env:
+      TAG: ${{ inputs.release_tag }}
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+        with: {ref: '${{ inputs.source }}'}
+      - uses: actions/setup-node@v4
+        with: {node-version: 22}
+      - run: npm ci && node ios/build.mjs
+      - name: Archive device and simulator applications
+        run: |
+          mkdir -p release
+          xcodebuild -quiet -project ios/Shengge.xcodeproj -scheme Shengge -configuration Release -destination 'generic/platform=iOS' -archivePath "$RUNNER_TEMP/Shengge.xcarchive" CODE_SIGNING_ALLOWED=NO archive
+          ditto -c -k --keepParent "$RUNNER_TEMP/Shengge.xcarchive" release/Shengge-iPhone-unsigned.xcarchive.zip
+          xcodebuild -quiet -project ios/Shengge.xcodeproj -scheme Shengge -configuration Release -destination 'generic/platform=iOS Simulator' -derivedDataPath build/sim build
+          ditto -c -k --keepParent build/sim/Build/Products/Release-iphonesimulator/Shengge.app release/Shengge-iOS-Simulator.zip
+          ditto -c -k --keepParent ios release/Shengge-iOS-Xcode.zip
+      - name: Install and launch the release on iPhone
+        timeout-minutes: 7
+        run: |
+          device=$(xcrun simctl create ShenggeVerify com.apple.CoreSimulator.SimDeviceType.iPhone-16 "$(xcrun simctl list runtimes available -j | python3 -c 'import sys,json;print(next(r["identifier"] for r in reversed(json.load(sys.stdin)["runtimes"]) if ".iOS-" in r["identifier"]))')")
+          echo "DEVICE=$device" >> "$GITHUB_ENV"
+          xcrun simctl boot "$device"
+          xcrun simctl bootstatus "$device" -b
+          xcrun simctl install "$device" build/sim/Build/Products/Release-iphonesimulator/Shengge.app
+          xcrun simctl launch "$device" app.shengge.mobile
+          sleep 5
+          xcrun simctl io "$device" screenshot release/home.png
+      - name: Test practice and history
+        timeout-minutes: 7
+        run: |
+          xcodebuild test -project ios/Shengge.xcodeproj -scheme Shengge -configuration Release -destination "platform=iOS Simulator,id=$DEVICE" -parallel-testing-enabled NO -test-timeouts-enabled YES -maximum-test-execution-time-allowance 180 -derivedDataPath build/sim -resultBundlePath "$RUNNER_TEMP/Practice.xcresult"
+      - name: Collect simulator state
+        if: always()
+        run: |
+          if [ -n "$DEVICE" ]; then
+            xcrun simctl io "$DEVICE" screenshot release/last-screen.png || true
+            xcrun simctl spawn "$DEVICE" log show --last 6m --predicate 'process == "Shengge" OR eventMessage CONTAINS[c] "app.shengge.mobile"' --style compact | tail -250 > release/simulator.log || true
+          fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: {name: iPhone-validation, path: release/}
+      - run: gh release upload "$TAG" release/*.zip --clobber

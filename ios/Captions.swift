@@ -9,7 +9,7 @@ import Speech
     private var rotate:Timer?
     private var pending:Line?
     private var deliver:((Line)->Void)?
-    private let recorder=RPScreenRecorder.shared()
+    private var recorder:RPScreenRecorder?
     func start(locale:String,position:@escaping ()->Double,onLine:@escaping(Line)->Void,onError:@escaping(String)->Void) async throws {
         stop();let id=session
         let permission=await withCheckedContinuation{ continuation in
@@ -18,18 +18,20 @@ import Speech
         guard session==id else{throw CancellationError()}
         guard permission == .authorized,let recognizer=SFSpeechRecognizer(locale:Locale(identifier:locale)),
               recognizer.supportsOnDeviceRecognition,recognizer.isAvailable else{throw Failure("此设备或语言暂不可用本机识别，可导入 SRT/VTT")}
+        let recorder=RPScreenRecorder.shared();self.recorder=recorder
         guard recorder.isAvailable else{throw Failure("当前设备无法采集播放音轨，可导入字幕")}
         recorder.isMicrophoneEnabled=false
         deliver=onLine
+        var packetOrigin:Double?
         func listen(){
             if let line=pending {onLine(line);pending=nil}
             task?.cancel();request?.endAudio()
             let audio=SFSpeechAudioBufferRecognitionRequest();audio.requiresOnDeviceRecognition=true;audio.shouldReportPartialResults=true
-            request=audio;let origin=position();var emitted=0
+            request=audio;packetOrigin=nil;var emitted=0
             task=recognizer.recognitionTask(with:audio){[weak self] result,error in
                 Task { @MainActor in
                     guard let self,self.session==id,self.request===audio else{return}
-                    if let result=result {
+                    if let result=result,let origin=packetOrigin {
                         let parts=result.bestTranscription.segments;var first=emitted
                         for i in emitted..<max(emitted,parts.count) {
                             let part=parts[i],next=i+1
@@ -54,7 +56,7 @@ import Speech
                 recorder.startCapture(handler:{[weak self] sample,type,error in
                     if let error=error {Task{@MainActor in if self?.session==id{onError(error.localizedDescription)}};return}
                     guard type == .audioApp,CMSampleBufferDataIsReady(sample) else{return}
-                    Task{@MainActor in if self?.session==id{self?.request?.appendAudioSampleBuffer(sample)}}
+                    Task{@MainActor in if self?.session==id{if packetOrigin==nil{packetOrigin=position()};self?.request?.appendAudioSampleBuffer(sample)}}
                 },completionHandler:{error in
                     if let error=error {continuation.resume(throwing:error)}else{continuation.resume()}
                 })
@@ -66,6 +68,6 @@ import Speech
     func stop(){
         if let line=pending {deliver?(line)};pending=nil;deliver=nil
         session=UUID();rotate?.invalidate();rotate=nil;task?.cancel();task=nil;request?.endAudio();request=nil
-        if recorder.isRecording{recorder.stopCapture{_ in}}
+        if let recorder=recorder,recorder.isRecording{recorder.stopCapture{_ in}};recorder=nil
     }
 }
