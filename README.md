@@ -2,19 +2,19 @@
 
 粘贴哔哩哔哩或 YouTube 视频链接，在同一播放器里听原声、逐句复读、留白跟读，再看提示片段接下一句。学习记录保存在当前设备。
 
-[下载安装包和中文视频教程](https://github.com/ioi610/shengge/releases/latest)
+## 下载安装
 
-| 系统 | 下载文件 | 安装与打开 |
+[46 秒中文使用教程（MP4）](https://github.com/ioi610/shengge/releases/latest/download/Shengge-Guide-zh-CN.mp4) · [全部发布文件](https://github.com/ioi610/shengge/releases/latest)
+
+| 平台 | 直接下载 | 安装方式 |
 | --- | --- | --- |
-| macOS 13+，Apple 芯片 | Shengge-macOS-arm64.zip | 解压，将「声格.app」拖入「应用程序」并打开。当前包使用本地签名。 |
-| Windows x64 | Shengge-Windows-x64-Setup.exe | 双击按当前用户安装，从开始菜单打开「声格」。便携版 Shengge-Windows-x64.zip 可完整解压后双击 Shengge.exe。 |
-| Debian / Ubuntu，x86-64 | shengge_0.3.5_amd64.deb | 在下载目录执行 `sudo apt install ./shengge_0.3.5_amd64.deb`，从应用菜单打开「声格」。 |
-| iPhone / iPad，iOS 16+ | Shengge-iOS-Xcode.zip | 在 Mac 解压，用 Xcode 打开 Shengge.xcodeproj。在 Signing & Capabilities 选择自己的 Team，选择已连接的设备并运行。真机签名使用自己的 Bundle Identifier。 |
-| Chrome 桌面扩展，137+ | Shengge-Chrome.zip | 解压后打开「安装说明.html」。在 chrome://extensions 打开开发者模式，选择「加载已解压的扩展程序」，选中 extension。 |
+| macOS 13+ · Apple 芯片 | [下载 Mac 版（ZIP）](https://github.com/ioi610/shengge/releases/latest/download/Shengge-macOS-arm64.zip) | 解压，将「声格.app」拖入「应用程序」。当前版本使用本地签名。 |
+| Windows x64 | [下载安装程序（EXE）](https://github.com/ioi610/shengge/releases/latest/download/Shengge-Windows-x64-Setup.exe) · [下载便携版（ZIP）](https://github.com/ioi610/shengge/releases/latest/download/Shengge-Windows-x64.zip) | 双击安装程序，从开始菜单打开。使用便携版时，完整解压后运行 `Shengge.exe`。 |
+| Linux · Debian / Ubuntu x86-64 | [下载 DEB 安装包](https://github.com/ioi610/shengge/releases/download/shengge-0.3.5/shengge_0.3.5_amd64.deb) | 在下载目录运行 `sudo apt install ./shengge_0.3.5_amd64.deb`。 |
+| iPhone / iPad · iOS 16+ | [下载 Xcode 工程](https://github.com/ioi610/shengge/releases/latest/download/Shengge-iOS-Xcode.zip) · [下载模拟器版](https://github.com/ioi610/shengge/releases/latest/download/Shengge-iOS-Simulator.zip) | 真机安装需要签名。在 Mac 上用 Xcode 打开工程，选择自己的 Team、Bundle Identifier 和已连接的设备，然后运行。 |
+| Chrome 桌面扩展 · 137+ | [下载 Chrome 扩展（ZIP）](https://github.com/ioi610/shengge/releases/latest/download/Shengge-Chrome.zip) | 解压，在 `chrome://extensions` 开启「开发者模式」，点「加载已解压的扩展程序」，选中 `extension` 文件夹。 |
 
-[观看中文操作视频](https://github.com/ioi610/shengge/releases/latest/download/Shengge-Guide-zh-CN.mp4)
-
-iOS 发布文件还包括供开发者签名的 iPhone 设备归档和可通过 Xcode 模拟器安装的版本。真机安装可通过上表的 Xcode 工程完成。TestFlight 和 App Store 分发需要使用 Apple 开发者账号签名。
+iOS 开发者也可[下载待签名的 iPhone 设备归档](https://github.com/ioi610/shengge/releases/latest/download/Shengge-iPhone-unsigned.xcarchive.zip)。
 
 ## 第一次练习
 
