@@ -10,7 +10,7 @@ static NSURL *resource(NSString *name) {
 // dedicated browser profile and packaged extension across upgrades.
 static NSURL *runtimeBundle(NSURL *support, NSError **error) {
     NSFileManager *files=NSFileManager.defaultManager;
-    NSURL *source=[NSBundle.mainBundle.bundleURL URLByAppendingPathComponent:@"Contents/Helpers/Google Chrome for Testing.app"];
+    NSURL *source=[NSBundle.mainBundle.bundleURL URLByAppendingPathComponent:@"Contents/Helpers/Brave Browser.app"];
     NSString *version=[[NSBundle bundleWithURL:source] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
     if(!version.length){
         if(error)*error=[NSError errorWithDomain:NSCocoaErrorDomain code:NSFileReadCorruptFileError userInfo:@{NSURLErrorKey:source}];
@@ -80,7 +80,7 @@ static NSURL *runtimeBundle(NSURL *support, NSError **error) {
     self.engine=[NSTask new];
     NSURL *runtime=runtimeBundle(support,&error);
     if(!runtime){[NSApp presentError:error];[NSApp terminate:nil];return;}
-    self.engine.executableURL=[runtime URLByAppendingPathComponent:@"Contents/MacOS/Google Chrome for Testing"];
+    self.engine.executableURL=[runtime URLByAppendingPathComponent:@"Contents/MacOS/Brave Browser"];
     self.engine.arguments=@[[@"--user-data-dir=" stringByAppendingString:profile.path], [@"--load-extension=" stringByAppendingString:resource(@"training").path],@"--no-first-run",@"--no-default-browser-check",@"--window-size=1160,760", [@"--app=" stringByAppendingString:target.absoluteString]];
     self.engine.terminationHandler=^(NSTask *task){dispatch_async(dispatch_get_main_queue(),^{[NSApp terminate:nil];});};
     if(![self.engine launchAndReturnError:&error]){[NSApp presentError:error];[NSApp terminate:nil];}

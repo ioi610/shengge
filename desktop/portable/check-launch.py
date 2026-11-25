@@ -1,5 +1,7 @@
 """Launch the installed player and verify that it reaches the extension home page."""
 from contextlib import closing
+import json
+import urllib.request
 import os
 from pathlib import Path
 import signal
@@ -13,9 +15,22 @@ import time
 def wait_for_home(history, started, process):
     home = "chrome-extension://clmdeglkjmdcjhlhemjglfhaefehclkg/home.html"
     chrome_time = int((started + 11644473600) * 1_000_000)
+    targets = []
     for _ in range(120):
         if process is not None and process.poll() is not None:
             raise RuntimeError("Player exited before reaching its home page")
+        if process is not None:
+            port_file = history.parents[1] / "DevToolsActivePort"
+            if port_file.exists():
+                try:
+                    port = int(port_file.read_text().splitlines()[0])
+                    with urllib.request.urlopen(f"http://127.0.0.1:{port}/json/list", timeout=1) as response:
+                        targets = json.load(response)
+                    if any(t.get("type") == "page" and t.get("url") == home and t.get("title") == "声格" for t in targets):
+                        print("Installed player rendered the home page")
+                        return
+                except (OSError, ValueError, IndexError):
+                    pass
         if history.exists():
             for mode in ["mode=ro", "immutable=1"]:
                 try:
@@ -26,6 +41,10 @@ def wait_for_home(history, started, process):
                 except sqlite3.OperationalError:
                     pass
         time.sleep(0.5)
+    print("Last targets:", [(t.get("type"), t.get("url"), t.get("title")) for t in targets])
+    if history.exists():
+        with closing(sqlite3.connect(history.as_uri() + "?immutable=1", uri=True)) as db:
+            print("Test profile URLs:", db.execute("SELECT url FROM urls ORDER BY last_visit_time DESC LIMIT 3").fetchall())
     raise RuntimeError("Installed player did not reach its home page")
 
 
@@ -37,7 +56,7 @@ def verify(app):
         return
     with tempfile.TemporaryDirectory() as temp:
         env = {**os.environ, "APPDATA": temp, "XDG_CONFIG_HOME": temp}
-        process = subprocess.Popen([app], env=env, start_new_session=os.name != "nt")
+        process = subprocess.Popen([app, "--verify-install"], env=env, start_new_session=os.name != "nt")
         try:
             wait_for_home(Path(temp) / "Shengge/Practice/Default/History", started, process)
         finally:

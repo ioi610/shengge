@@ -32,6 +32,10 @@ func launch() error {
 	}
 	target := url.URL{Scheme: "file", Path: page, Fragment: "home"}
 	cmd := exec.Command(browser, "--user-data-dir="+profile, "--load-extension="+filepath.Join(root, "training"), "--no-first-run", "--no-default-browser-check", "--window-size=1160,760", "--app="+target.String())
+	// The installer check inspects a disposable profile through a loopback DevTools port.
+	if len(os.Args) == 2 && os.Args[1] == "--verify-install" {
+		cmd.Args = append(cmd.Args, "--remote-debugging-port=0", "--remote-debugging-address=127.0.0.1")
+	}
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
 	return cmd.Run()

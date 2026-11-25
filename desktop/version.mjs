@@ -1,2 +1,2 @@
 export const desktopVersion='0.3.6';
-export const desktopBuild=10;
+export const desktopBuild=11;
