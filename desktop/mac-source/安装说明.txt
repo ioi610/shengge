@@ -1,0 +1,11 @@
+声格 · Apple 芯片 Mac · 本机编译安装
+适用于 macOS 13 及以上。播放器和语音模型已随包提供。编译需要 Apple 命令行工具，安装位置为个人「应用程序」文件夹。
+
+1. 将整个 ZIP 解压到「下载」，得到 Shengge-Mac 文件夹。
+2. 在「终端」运行 xcode-select -p。如果提示找不到开发工具，运行 xcode-select --install，按系统提示完成安装。
+3. 退出已打开的声格，在「终端」粘贴以下命令并回车：
+   /usr/bin/python3 "$HOME/Downloads/Shengge-Mac/install.py"
+4. 看到「已安装」后打开：
+   open "$HOME/Applications/声格.app"
+
+选择咖啡馆示例试用，也可以粘贴视频链接。升级沿用此用户之前的声格学习记录。

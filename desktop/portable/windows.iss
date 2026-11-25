@@ -1,7 +1,7 @@
 [Setup]
 AppId=Shengge.Desktop
 AppName=声格
-AppVersion=0.3.5
+AppVersion=0.3.6
 DefaultDirName={localappdata}\Programs\Shengge
 DefaultGroupName=声格
 PrivilegesRequired=lowest

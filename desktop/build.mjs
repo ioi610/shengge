@@ -24,8 +24,10 @@ await writeFile(path.join(contents,'Info.plist'),`<?xml version="1.0" encoding="
 <key>CFBundleVersion</key><string>${desktopBuild}</string><key>CFBundleShortVersionString</key><string>${desktopVersion}</string>
 <key>LSMinimumSystemVersion</key><string>13.0</string><key>NSHighResolutionCapable</key><true/><key>LSUIElement</key><true/></dict></plist>`);
 execFileSync('xcrun',['clang','-fobjc-arc','-O2','-mmacosx-version-min=13.0','-framework','Cocoa','-framework','WebKit','-framework','UniformTypeIdentifiers',path.join(desktop,'main.m'),'-o',path.join(contents,'MacOS/Shengge')],{stdio:'inherit'});
-execFileSync('codesign',['--force','--sign','-',path.dirname(contents)],{stdio:'inherit'});
-execFileSync('codesign',['--verify','--strict',bundle]);
+const identity=process.env.SHENGGE_SIGNING_IDENTITY || '-';
+execFileSync('python3',[path.join(desktop,'sign-runtime.py'),path.join(contents,'Helpers','Google Chrome for Testing.app'),identity],{stdio:'inherit'});
+execFileSync('codesign',['--force','--sign',identity,...(identity==='-'?[]:['--options','runtime','--timestamp']),bundle],{stdio:'inherit'});
+execFileSync('codesign',['--verify','--deep','--strict',bundle]);
 const previous=path.join(stage,'previous.app');
 let saved=false;
 try{await rename(final,previous);saved=true;}catch(e){if(e.code!=='ENOENT')throw e;}

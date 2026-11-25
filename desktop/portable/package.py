@@ -40,7 +40,7 @@ def debian(stage, out, work):
     apps=data/"usr/share/applications"; apps.mkdir(parents=True)
     (apps/"shengge.desktop").write_text("[Desktop Entry]\nType=Application\nName=声格\nExec=/opt/shengge/Shengge\nIcon=/opt/shengge/training/icons/icon-128.png\nCategories=Education;AudioVideo;\nTerminal=false\n",encoding="utf-8")
     ctl=work/"control";ctl.mkdir()
-    (ctl/"control").write_text("Package: shengge\nVersion: 0.3.5\nArchitecture: amd64\nMaintainer: Shengge\nDepends: libnss3, libatk-bridge2.0-0, libx11-6, libgbm1, libasound2 | libasound2t64, libgtk-3-0 | libgtk-3-0t64, libxkbcommon0, libxcomposite1, libxdamage1, libxrandr2, libcups2 | libcups2t64, libxfixes3\nDescription: Video listening and dialogue practice\n")
+    (ctl/"control").write_text("Package: shengge\nVersion: 0.3.6\nArchitecture: amd64\nMaintainer: Shengge\nDepends: libnss3, libatk-bridge2.0-0, libx11-6, libgbm1, libasound2 | libasound2t64, libgtk-3-0 | libgtk-3-0t64, libxkbcommon0, libxcomposite1, libxdamage1, libxrandr2, libcups2 | libcups2t64, libxfixes3\nDescription: Video listening and dialogue practice\n")
     (work/"debian-binary").write_bytes(b"2.0\n")
     archive_tar(work/"control.tar.gz",ctl,"."); archive_tar(work/"data.tar.gz",data,".",True)
     with out.open("wb") as f:
@@ -79,7 +79,7 @@ def main():
             with zipfile.ZipFile(release/"Shengge-Windows-x64.zip","w",zipfile.ZIP_DEFLATED,compresslevel=5) as z:
                 for path in sorted(app.rglob("*")):
                     if path.is_file(): z.write(path,"Shengge/"+path.relative_to(app).as_posix())
-        else: debian(app,release/"shengge_0.3.5_amd64.deb",work)
+        else: debian(app,release/"shengge_0.3.6_amd64.deb",work)
         if stage.exists():shutil.rmtree(stage)
         app.rename(stage)
 if __name__=="__main__":main()

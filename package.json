@@ -1,6 +1,6 @@
 {
   "name": "kotoba-scene",
-  "version": "0.8.25",
+  "version": "0.8.26",
   "private": true,
   "type": "module",
   "description": "声格 Chrome 扩展：多语言对白复读、跟读和接话自评",

@@ -1,40 +1,80 @@
-name: Distribute desktop installers
+name: Install and verify release packages
 on:
   workflow_dispatch:
     inputs:
-      tag: {description: Existing release tag, required: true}
-      native_run: {description: Platform packages workflow run ID, required: true}
+      tag: {description: Existing draft release tag, required: true}
 permissions:
   contents: write
-  actions: read
+env:
+  TAG: ${{ inputs.tag }}
+  GH_TOKEN: ${{ github.token }}
 jobs:
   mac:
     runs-on: macos-15
-    timeout-minutes: 25
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
         with: {ref: '${{ inputs.tag }}'}
       - uses: actions/setup-node@v4
         with: {node-version: 22}
-      - run: npm ci && node desktop/build.mjs && ditto -c -k --keepParent release/声格.app release/Shengge-macOS-arm64.zip
-      - env: {GH_TOKEN: '${{ github.token }}', TAG: '${{ inputs.tag }}'}
-        run: gh release upload "$TAG" release/Shengge-macOS-arm64.zip --clobber
-  packages:
-    runs-on: ubuntu-22.04
-    timeout-minutes: 20
+      - run: npm ci && node desktop/build.mjs && python3 desktop/mac-source/package.py
+      - name: Install from the downloaded archive and open the player
+        run: |
+          zip=release/Shengge-macOS-arm64-source.zip
+          xattr -w com.apple.quarantine "0083;69230faa;Safari;" "$zip"
+          ditto -x -k "$zip" "$RUNNER_TEMP/Download"
+          /usr/bin/python3 "$RUNNER_TEMP/Download/Shengge-Mac/install.py"
+          codesign --verify --deep --strict "$HOME/Applications/声格.app"
+          python3 desktop/portable/check-launch.py "$HOME/Applications/声格.app"
+      - run: gh release upload "$TAG" release/Shengge-macOS-arm64-source.zip --clobber
+  desktop:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - {os: windows-2022, target: win64}
+          - {os: ubuntu-22.04, target: linux64}
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 40
     steps:
       - uses: actions/checkout@v4
         with: {ref: '${{ inputs.tag }}'}
-      - uses: actions/download-artifact@v4
-        with:
-          name: linux64
-          run-id: ${{ inputs.native_run }}
-          github-token: ${{ github.token }}
-          path: release
       - uses: actions/setup-node@v4
         with: {node-version: 22}
       - uses: actions/setup-go@v5
         with: {go-version: '1.24.x', cache: false}
-      - run: npm ci && SHENGGE_OUTPUT=dist/desktop-training node scripts/build.mjs && python3 desktop/portable/package.py win64
-      - env: {GH_TOKEN: '${{ github.token }}', TAG: '${{ inputs.tag }}'}
-        run: gh release upload "$TAG" release/*.deb release/Shengge-Windows-x64.zip --clobber
+      - run: npm ci
+      - run: node scripts/build.mjs
+        env: {SHENGGE_OUTPUT: dist/desktop-training}
+      - run: python desktop/portable/package.py ${{ matrix.target }}
+      - run: npm install --prefix "${{ runner.temp }}/sg-smoke" playwright-core@1.56.1
+      - if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          & "${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe" desktop/portable/windows.iss
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          $dir = "$env:RUNNER_TEMP\Installed Shengge"
+          $setup = Start-Process release/Shengge-Windows-x64-Setup.exe -Wait -PassThru -ArgumentList "/VERYSILENT /SUPPRESSMSGBOXES /NORESTART `"/DIR=$dir`""
+          if ($setup.ExitCode -ne 0) { exit $setup.ExitCode }
+          python desktop/portable/check-launch.py "$dir/Shengge.exe"
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          node desktop/portable/smoke.cjs "$dir" "$env:RUNNER_TEMP/sg-smoke"
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          Expand-Archive release/Shengge-Windows-x64.zip "$env:RUNNER_TEMP/Portable"
+          python desktop/portable/check-launch.py "$env:RUNNER_TEMP/Portable/Shengge/Shengge.exe"
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          gh release upload "$env:TAG" release/Shengge-Windows-x64-Setup.exe release/Shengge-Windows-x64.zip --clobber
+      - if: runner.os == 'Linux'
+        run: |
+          sudo apt-get install -y ./release/*.deb
+          xvfb-run -a python3 desktop/portable/check-launch.py /opt/shengge/Shengge
+          xvfb-run -a node desktop/portable/smoke.cjs /opt/shengge "$RUNNER_TEMP/sg-smoke"
+          gh release upload "$TAG" release/*.deb --clobber
+      - if: runner.os == 'Linux'
+        name: Load the published Chrome extension from its ZIP
+        run: |
+          npm run package
+          python3 distribution/package-extension.py
+          unzip -q release/Shengge-Chrome.zip -d "$RUNNER_TEMP/Extension"
+          xvfb-run -a node distribution/check-extension.cjs /opt/shengge/runtime/chrome "$RUNNER_TEMP/Extension/extension" "$RUNNER_TEMP/sg-smoke"
+          gh release upload "$TAG" release/Shengge-Chrome.zip --clobber

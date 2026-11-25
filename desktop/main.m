@@ -19,7 +19,8 @@ static NSURL *runtimeBundle(NSURL *support, NSError **error) {
     // Chromium GPU initialization also fails when its bundle lives below
     // a non-ASCII directory on this distribution. Keep user data separate.
     NSURL *root=[support.URLByDeletingLastPathComponent URLByAppendingPathComponent:@"Shengge/Runtime"];
-    NSURL *directory=[root URLByAppendingPathComponent:version];
+    NSString *build=[NSBundle.mainBundle objectForInfoDictionaryKey:@"CFBundleVersion"];
+    NSURL *directory=[root URLByAppendingPathComponent:[NSString stringWithFormat:@"%@-sg%@",version,build]];
     NSURL *target=[directory URLByAppendingPathComponent:source.lastPathComponent];
     if([files fileExistsAtPath:target.path])return target;
     if(![files createDirectoryAtURL:directory withIntermediateDirectories:YES attributes:nil error:error])return nil;
