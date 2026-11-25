@@ -76,11 +76,6 @@ jobs:
           xvfb-run -a python3 desktop/portable/check-launch.py /opt/shengge/Shengge
           xvfb-run -a node desktop/portable/smoke.cjs /opt/shengge "$RUNNER_TEMP/sg-smoke"
           gh release upload "$TAG" release/*.deb --clobber
-      - if: runner.os == 'Linux'
-        name: Load the published Chrome extension from its ZIP
-        run: |
-          npm run package
-          python3 distribution/package-extension.py
-          unzip -q release/Shengge-Chrome.zip -d "$RUNNER_TEMP/Extension"
-          xvfb-run -a node distribution/check-extension.cjs /opt/shengge/runtime/chrome "$RUNNER_TEMP/Extension/extension" "$RUNNER_TEMP/sg-smoke"
-          gh release upload "$TAG" release/Shengge-Chrome.zip --clobber
+  extension:
+    uses: ./.github/workflows/extension.yml
+    with: {tag: '${{ inputs.tag }}'}

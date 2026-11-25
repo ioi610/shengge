@@ -1,0 +1,30 @@
+name: Package and load Chrome extension
+on:
+  workflow_call:
+    inputs:
+      tag: {type: string, required: true}
+  workflow_dispatch:
+    inputs:
+      tag: {description: Existing draft release tag, required: true}
+permissions:
+  contents: write
+jobs:
+  chrome:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with: {ref: '${{ github.sha }}'}
+      - uses: actions/setup-node@v4
+        with: {node-version: 24}
+      - run: npm ci && npm run package && python3 distribution/package-extension.py
+      - name: Load the shipped ZIP in a fresh Chromium profile
+        run: |
+          unzip -q release/Shengge-Chrome.zip -d "$RUNNER_TEMP/Extension"
+          npm install --prefix "$RUNNER_TEMP/sg-smoke" playwright-core@1.56.1
+          pw="$RUNNER_TEMP/sg-smoke/node_modules/playwright-core"
+          node "$pw/cli.js" install chromium
+          browser=$(node -p "require(process.argv[1]).chromium.executablePath()" "$pw")
+          xvfb-run -a node distribution/check-extension.cjs "$browser" "$RUNNER_TEMP/Extension/extension" "$RUNNER_TEMP/sg-smoke"
+      - run: gh release upload "$TAG" release/Shengge-Chrome.zip --clobber
+        env: {GH_TOKEN: '${{ github.token }}', TAG: '${{ inputs.tag }}'}
